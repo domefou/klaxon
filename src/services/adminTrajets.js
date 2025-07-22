@@ -33,7 +33,6 @@ const User = require('../models/users');
  * @throws {400 Bad Request} si utilisateur introuvable ou incohérence temporelle
  * @throws {500 Internal Server Error} en cas d’échec serveur
  */
-
 async function createTrajet(req, res) {
     const {
         id_user,
@@ -47,6 +46,7 @@ async function createTrajet(req, res) {
     } = req.body;
 
     try {
+        // Vérifie que l'utilisateur existe
         const user = await User.findByPk(id_user);
         if (!user) {
             return res.status(404).json({
@@ -55,9 +55,18 @@ async function createTrajet(req, res) {
             });
         }
 
+        // 👉 Vérifie que les agences sont différentes
+        if (id_agence_depart === id_agence_arrivee) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "L’agence de départ ne peut pas être la même que celle d’arrivée."
+            });
+        }
+
         const departDateTime = new Date(`${date_depart}T${heure_depart}`);
         const arriveeDateTime = new Date(`${date_arrivee}T${heure_arrivee}`);
 
+        // Vérifie que l'arrivée est après le départ
         if (arriveeDateTime <= departDateTime) {
             return res.status(400).json({
                 success: false,
@@ -65,6 +74,7 @@ async function createTrajet(req, res) {
             });
         }
 
+        // Création du trajet
         const newTrajet = await Trajet.create({
             id_user,
             date_depart,
@@ -92,6 +102,7 @@ async function createTrajet(req, res) {
         });
     }
 }
+
 
 
 
@@ -162,7 +173,6 @@ async function deleteTrajet(req, res) {
  * @throws {404 Not Found} si aucun trajet ne correspond à l’ID
  * @throws {500 Internal Server Error} en cas d’échec serveur
  */
-
 async function updateTrajet(req, res) {
     const id = req.body.id_trajet?.trim();
     const newData = req.body;
@@ -183,6 +193,7 @@ async function updateTrajet(req, res) {
             });
         }
 
+        // Appliquer les modifications reçues
         Object.keys(newData).forEach(key => {
             if (
                 key !== 'id_trajet' &&
@@ -192,6 +203,25 @@ async function updateTrajet(req, res) {
                 trajet[key] = newData[key].trim();
             }
         });
+
+        // 🔒 Vérifie que les agences sont différentes
+        if (trajet.id_agence_depart === trajet.id_agence_arrivee) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "L’agence de départ ne peut pas être la même que celle d’arrivée."
+            });
+        }
+
+        // ⏳ Vérifie que la date/heure de départ n’est pas dans le passé
+        const departDateTime = new Date(`${trajet.date_depart}T${trajet.heure_depart}`);
+        const now = new Date();
+
+        if (departDateTime <= now) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "La date et l'heure de départ ne peuvent pas être dans le passé."
+            });
+        }
 
         await trajet.save();
 
@@ -207,6 +237,7 @@ async function updateTrajet(req, res) {
         });
     }
 }
+
 
 
 module.exports = {

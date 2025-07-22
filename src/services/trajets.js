@@ -30,7 +30,6 @@ const User = require('../models/users');
  * - 400 : erreur de validation des données
  * - 500 : erreur serveur
  */
-
 async function createTrajet(req, res) {
     const {
         id_user,
@@ -44,6 +43,7 @@ async function createTrajet(req, res) {
     } = req.body;
 
     try {
+        // 🔍 Vérifie que l'utilisateur existe
         const user = await User.findByPk(id_user);
         if (!user) {
             return res.status(404).json({
@@ -52,16 +52,35 @@ async function createTrajet(req, res) {
             });
         }
 
-        const departDateTime = new Date(`${date_depart}T${heure_depart}`);
-        const arriveeDateTime = new Date(`${date_arrivee}T${heure_arrivee}`);
-
-        if (arriveeDateTime <= departDateTime) {
+        // 🚫 Agences identiques interdites
+        if (id_agence_depart === id_agence_arrivee) {
             return res.status(400).json({
                 success: false,
-                errorMessage: `La date et l'heure d'arrivée doivent être après celles du départ.`
+                errorMessage: "L’agence de départ ne peut pas être identique à celle d’arrivée."
             });
         }
 
+        const departDateTime = new Date(`${date_depart}T${heure_depart}`);
+        const arriveeDateTime = new Date(`${date_arrivee}T${heure_arrivee}`);
+        const now = new Date();
+
+        // ⏳ Départ dans le passé interdit
+        if (departDateTime <= now) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "La date et l'heure de départ ne peuvent pas être dans le passé."
+            });
+        }
+
+        // 🔁 Vérifie que l'arrivée est après le départ
+        if (arriveeDateTime <= departDateTime) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "La date et l'heure d'arrivée doivent être après celles du départ."
+            });
+        }
+
+        // ✅ Créer le trajet
         const newTrajet = await Trajet.create({
             id_user,
             date_depart,
@@ -81,6 +100,7 @@ async function createTrajet(req, res) {
             successMessage: `Trajet créé avec succès du ${formattedStart} au ${formattedEnd}.`,
             id_trajet: newTrajet.id_trajet
         });
+
     } catch (error) {
         console.error("❌ Erreur création trajet :", error.message || error);
         return res.status(500).json({
@@ -89,6 +109,7 @@ async function createTrajet(req, res) {
         });
     }
 }
+
 
 
 // 🗑️ Supprimer un trajet
@@ -165,7 +186,6 @@ async function deleteTrajet(req, res) {
  * - 404 : trajet introuvable
  * - 500 : erreur serveur
  */
-
 async function updateTrajet(req, res) {
     const id = req.body.id_trajet?.trim();
     const newData = req.body;
@@ -196,11 +216,30 @@ async function updateTrajet(req, res) {
             }
         });
 
+        // 🔁 Validation : agences différentes
+        if (trajet.id_agence_depart === trajet.id_agence_arrivee) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "L’agence de départ ne peut pas être identique à celle d’arrivée."
+            });
+        }
+
+        // ⏳ Validation : date de départ dans le futur
+        const departDateTime = new Date(`${trajet.date_depart}T${trajet.heure_depart}`);
+        const now = new Date();
+
+        if (departDateTime <= now) {
+            return res.status(400).json({
+                success: false,
+                errorMessage: "La date et l'heure de départ ne peuvent pas être dans le passé."
+            });
+        }
+
         await trajet.save();
 
         return res.status(200).json({
             success: true,
-            successMessage: `Trajet mis à jour`
+            successMessage: "Trajet mis à jour"
         });
     } catch (error) {
         console.error("❌ Update trajet :", error.message || error);
@@ -210,6 +249,7 @@ async function updateTrajet(req, res) {
         });
     }
 }
+
 
 
 module.exports = {
