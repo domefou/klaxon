@@ -3,11 +3,11 @@
 
 
 h1 {
-    font-size: 2em;
+    margin: 0;
+    font-size: 3em;
     width: 100%;
     text-align: center;
-    @include mixin.color_dark-blue;
-    margin-top: 20px;
+    @include mixin.color_white;
     padding-top: 20px;
 }
 
@@ -28,6 +28,14 @@ h3 {
     margin-top: 50px;
     padding-top: 20px;
     border-top: 2px double #0074c7;
+}
+
+h4 {
+    display: block;
+    justify-self: center;
+    width: 60%;
+    text-align: center;
+    @include mixin.color_white;
 }
 
 p {
@@ -64,6 +72,7 @@ body {
     footer {
         display: flex;
         align-items: center;
+        flex-direction: column;
         justify-content: center;
         @include mixin.bg_dark-blue;
         color: #f1f8fc;

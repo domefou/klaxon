@@ -64,6 +64,9 @@ DB_PASSWORD=votre_password
 DB_NAME=nom_de_la_base
 SECRET_KEY=clé_secrète_jwt
 
+
+
+
 2. **Installer les dépendances**
    - Node.js  
      ```bash
@@ -74,6 +77,29 @@ SECRET_KEY=clé_secrète_jwt
      composer install
      ```
 
+3. **Creer une database**
+
+  - Utiliser les scripts présent dans /src/database/CreateDb.sql
+
+
+4. **Inserer data dans la database**
+
+  - Utiliser les scripts présent dans /src/database/insertData.sql
+
+  - Les role étant vide a la création de la Db veuillez utiliser ces informations pour initialiser un administrateur :
+
+! Aucun mot de passe n’est encore assigné a ce profil veuillez suivre les étapes nécessaire lors de l’entrée sur le site 
+
+
+* lors de votre arrivé sur le site :
+
+- dirigez vous vers le lien : Je n'ai pas encore defini de mot de passe ?
+- puis initialisez votre mot de passe avec les éléments ci dessous.
+
+      mail : admin@email,fr
+      nom : admin
+      prénom : admin
+      telephone : 0000000000
 ---
 
 ## 🚀 Scripts utiles
@@ -119,8 +145,7 @@ SECRET_KEY=clé_secrète_jwt
 
 ## 👨‍💻 Auteur
 
-- **Nom** : Lecoultre Jean
-- **Email** : lecoultre.dev85@example.com
+- **Github** : https://github.com/domefou
 
 ---
 

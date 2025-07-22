@@ -8,15 +8,25 @@
   background-color: #0074c7;
 }
 .main_no_connect .back {
-  width: 80px;
-  height: 40px;
+  width: 110px;
+  height: 50px;
   margin-left: 70px;
+  border-radius: 6px;
   background-color: #82b864;
   color: #f1f8fc;
 }
 .main_no_connect .back:hover {
   background-color: #f1f8fc;
   color: #384050;
+  box-shadow: #82b864 0px 0px 5px;
+  cursor: pointer;
+}
+.main_no_connect .back a {
+  display: inline-block;
+  text-decoration: none;
+  align-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .form_no_connect {
@@ -107,11 +117,11 @@
 }
 
 h1 {
-  font-size: 2em;
+  margin: 0;
+  font-size: 3em;
   width: 100%;
   text-align: center;
-  color: #00497c;
-  margin-top: 20px;
+  color: #f1f8fc;
   padding-top: 20px;
 }
 
@@ -132,6 +142,14 @@ h3 {
   margin-top: 50px;
   padding-top: 20px;
   border-top: 2px double #0074c7;
+}
+
+h4 {
+  display: block;
+  justify-self: center;
+  width: 60%;
+  text-align: center;
+  color: #f1f8fc;
 }
 
 p {
@@ -164,6 +182,7 @@ body .main_connect {
 body footer {
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   background-color: #00497c;
   color: #f1f8fc;

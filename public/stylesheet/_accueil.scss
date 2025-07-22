@@ -10,15 +10,26 @@
     @include mixin.bg_blue;
 
     .back {
-        width: 80px;
-        height: 40px;
+        width: 110px;
+        height: 50px;
         margin-left: 70px;
+        border-radius: 6px;
         @include mixin.bg_green;
         @include mixin.color_white;
 
         &:hover {
             @include mixin.bg_white;
             @include mixin.color_dark-grey;
+            box-shadow: #82b864 0px 0px 5px;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            align-content: center;
+            width: 100%;
+            height: 100%;
         }
     }
 
