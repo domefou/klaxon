@@ -1,0 +1,88 @@
+/* COLOR */
+
+@mixin color_white {
+    color: #f1f8fc;
+}
+
+@mixin color_blue {
+    color: #0074c7
+}
+
+@mixin color_dark-blue {
+    color: #00497c
+}
+
+@mixin color_dark-grey {
+    color: #384050
+}
+
+@mixin color_red {
+    color: #cd2c2e
+}
+
+@mixin color_green {
+    color: #82b864
+}
+
+/* BACKGROUND COLOR*/
+
+@mixin bg_white {
+    background-color: #f1f8fc;
+}
+
+@mixin bg_blue {
+    background-color: #0074c7
+}
+
+@mixin bg_dark-blue {
+    background-color: #00497c
+}
+
+@mixin bg_dark-grey {
+    background-color: #384050
+}
+
+@mixin bg_red {
+    background-color: #cd2c2e
+}
+
+@mixin bg_green {
+    background-color: #82b864
+}
+
+//bouton deconnexion
+@mixin bg_logout {
+    width: 140px;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+    background-color: #cd2c2e;
+    color: #f1f8fc;
+    box-shadow: #384050 0px 0px 5px;
+    border: #384050 1px solid;
+    cursor: pointer;
+}
+
+@mixin bg_trajet {
+    width: 140px;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+    background-color: #82b864;
+    color: #384050;
+    box-shadow: #384050 0px 0px 5px;
+    border: #384050 1px solid;
+    cursor: pointer;
+}
+
+@mixin bg_form {
+    width: 120px;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+    background-color: #0074c7;
+    color: #f1f8fc;
+    box-shadow: #384050 0px 0px 5px;
+    border: #384050 1px solid;
+    cursor: pointer;
+}

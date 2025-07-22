@@ -1,0 +1,22 @@
+{
+    "name": "tonbe/devoir_klaxon_covoit",
+    "description": "Api covoiturage",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^11.5",
+        "phpstan/phpstan": "^2.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tonbe\\DevoirKlaxonCovoit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lecoultrejean",
+            "email": "lecoultre.dev85@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

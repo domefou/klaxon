@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/main.css">
+
+    <script src="/JS/user/user.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <h1>Klaxon</h1>
+        <div class="navBar">
+            <div class="Nav_list">
+                <ul>
+                    <li><button id="newTrajet">Créer un trajet</button></li>
+                    <li>Bonjour : <%= user.nom %>
+                            <%= user.prenom %>
+                    </li>
+                </ul>
+                <button id="logoutButton">Deconnexion</button>
+            </div>
+        </div>
+    </header>
+
+
+    <main class="main_connect">
+        <!--
+        <% if (successMessage) { %>
+            <div class="alert success">
+                <%= successMessage %>
+            </div>
+            <% } %>
+
+                <% if (errorMessage) { %>
+                    <div class="alert error">
+                        <%= errorMessage %>
+                    </div>
+                    <% } %>
+       -->
+
+
+        <div id="messageBox" class="alert" style="display:none;"></div>
+
+
+        <!---------------- Formulaire de création de trajet -------------------->
+
+        <form id="formCreate" action="/user/menu/create" method="post" style="display: none;">
+            <fieldset>
+                <legend>Creer un trajet</legend>
+
+                <input type="hidden" name="id_user" id="id_user" value="<%= user.id_user %>">
+                <input type="hidden" name="id_trajet" id="id_trajet" value="">
+
+
+                <label for="name">Nom :</label>
+                <input type="text" name="nom" id="name" value="<%= user.nom %>" autocomplete="nom" readonly required>
+
+                <label for="id_agence_depart">Agence de départ :</label>
+                <select name="id_agence_depart" id="id_agence_depart" autocomplete="off" required>
+                    <option value="" disabled selected hidden>Choisir une agence :</option>
+                    <% agences.forEach(agence=> { %>
+                        <option value="<%= agence.id_agence %>">
+                            <%= agence.agence %>
+                        </option>
+                        <% }) %>
+                </select>
+
+
+                <label for="date_depart">Date de départ :</label>
+                <input type="date" name="date_depart" id="date_depart" value="" autocomplete="off" required>
+
+                <label for="heure_depart">Heure de départ :</label>
+                <input type="time" name="heure_depart" id="heure_depart" value="" autocomplete="off" required>
+
+
+                <label for="id_agence_arrivee">Agence d'arrivée :</label>
+                <select name="id_agence_arrivee" id="id_agence_arrivee" autocomplete="off" required>
+                    <option value="" disabled selected hidden>Choisir une agence :</option>
+                    <% agences.forEach(agence=> { %>
+                        <option value="<%= agence.id_agence %>">
+                            <%= agence.agence %>
+                        </option>
+                        <% }) %>
+                </select>
+
+                <label for="date_arrivee">Date d'arrivé :</label>
+                <input type="date" name="date_arrivee" id="date_arrivee" value="" autocomplete="off" required>
+
+                <label for="heure_arrivee">Heure de d'arrivée :</label>
+                <input type="time" name="heure_arrivee" id="heure_arrivee" value="" autocomplete="off" required>
+
+                <label for="place">Nombre de places :</label>
+                <select name="place" id="place" title="Nombre de places" autocomplete="off" required>
+                    <option value="" disabled>choisir</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+
+                <div class="btn_submit_reset">
+                    <button type="submit" id="btn_submit">Envoyer</button>
+                    <input type="reset" value="Effacer" id="btn_reset">
+                </div>
+            </fieldset>
+            <div class="paramsMessage">
+
+
+            </div>
+        </form>
+
+
+
+
+        <!--------------- Table des trajets------------------------->
+
+
+
+        <h2>Bienvenu sur l'application de covoiturage Klaxon.</h2>
+        <p>Partagez vos frais de déplacement, et participez activement a réduire vos émissions de CO2
+            grace a Klaxon.</p>
+
+
+
+
+
+        <table class="table_traj-gen" cellpadding="5">
+            <tr>
+                <th>Départ</th>
+                <th>Date Départ</th>
+                <th>Heure Départ</th>
+                <th>Arrivée</th>
+                <th>Date Arrivée</th>
+                <th>Heure Arrivée</th>
+                <th>Places</th>
+                <th></th>
+            </tr>
+            <% trajets.forEach(t=> { %>
+                <tr>
+                    <td data-agenceDepart="<%= t.depart.agence %>">
+                        <%= t.depart.agence %>
+                    </td>
+                    <td data-dateDepart="<%= t.date_depart %>">
+                        <%= t.date_depart %>
+                    </td>
+                    <td data-heureDepart="<%= t.heure_depart %>">
+                        <%= t.heure_depart %>
+                    </td>
+                    <td data-agenceArrivee="<%= t.arrivee.agence %>">
+                        <%= t.arrivee.agence %>
+                    </td>
+                    <td data-dateArrivee="<%= t.date_arrivee %>">
+                        <%= t.date_arrivee %>
+                    </td>
+                    <td data-heureArrivee="<%= t.heure_arrivee %>">
+                        <%= t.heure_arrivee %>
+                    </td>
+                    <td data-place="<%= t.place %>">
+                        <%= t.place %>
+                    </td>
+                    <td style="display: none;" data-idUser="<%= t.id_user %>">
+                        <%= t.id_user %>
+                    </td>
+                    <td style="display: none;" data-idTrajet="<%= t.id_trajet %>">
+                        <%= t.id_trajet %>
+                    </td>
+                    <td style="display: none;" data-idDepart="<%= t.id_agence_depart %>">
+                        <%= t.id_agence_depart %>
+                    </td> <!-- index 9 -->
+                    <td style="display: none;" data-idArrivee="<%= t.id_agence_arrivee %>">
+                        <%= t.id_agence_arrivee %>
+                    </td> <!-- index 10 -->
+
+                    <td>
+                        <button class="btn_user view"><img src="/img/view.png" alt="logo regarder"></button>
+
+                        <% if (t.id_user===user.id_user) { %>
+                            <button class="btn_user edit"><img src="/img/edit.png" alt="logo modifier"></button>
+                            <button class="btn_user inputDelete" type="submit" form="globalDeleteForm"
+                                data-idtrajet="<%= t.id_trajet %>">
+                                <img src="/img/bin.png" alt="Supprimer">
+                            </button>
+                            <% } %>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+        <!---------------------- Formulaire de suppression ---------------------->
+
+        <form id="globalDeleteForm">
+            <input type="hidden" name="id_trajet" id="id_trajet">
+        </form>
+
+
+
+        <!---------------------- Modale ---------------------->
+
+
+        <div id="modalTrajet" class="modal" style="display: none;">
+            <div class="modal_container">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Détails du trajet</h2>
+
+                    <p><strong>Nom :</strong> <span id="modalNom"></span></p>
+
+                    <p><strong>Téléphone :</strong>
+                        <a id="modalTel" href="#" style="color: #0077cc; text-decoration: underline;"
+                            target="_blank"></a>
+                    </p>
+
+                    <p><strong>Email :</strong>
+                        <a id="modalEmail" href="#" style="color: #0077cc; text-decoration: underline;"
+                            target="_blank"></a>
+                    </p>
+
+                    <p><strong>Places restantes :</strong> <span id="modalPlace"></span></p>
+
+                    <div class="modal_footer">
+                        <button class="close">Fermer</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </main>
+    <footer>
+        <small>©copyright 2025 Centre enuropéen de formation</small>
+    </footer>
+</body>
+
+</html>
+
+<!--
+/*
+📩 Données reçues : {
+  mail: 'alexandre.martin@email.fr',
+  nom: 'Martin',
+  password: 'martin0000'
+  */
+-->

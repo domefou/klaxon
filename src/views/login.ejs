@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/main.css">
+
+    <title>accueil Api Klaxon</title>
+</head>
+
+
+
+
+<body>
+    <header>
+        <h1>Klaxon</h1>
+    </header>
+    <main class="main_no_connect">
+        <h2>Connection</h2>
+        <form class="form_no_connect" action="/login" method="post">
+            <fieldset>
+                <legend>Connexion</legend>
+                <label for="email">Veuillez renseigner votre adresse mail :</label>
+                <input type="text" id="email" name="mail" placeholder="adresse@mail.com" autocomplete="email" required>
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" placeholder="mot de passe"
+                    autocomplete="current-password" required>
+                <small>* Le mot de passe doit contenir au moins 8 caractères</small>
+                <div class="btn_submit_reset">
+                    <input type="submit" id="btn_submit" value="se connecter">
+                    <input type="reset" id="btn_reset" value="effacer">
+                </div>
+
+                <% if (errorMessage) { %>
+                    <p style="color:red;">
+                        <%= errorMessage %>
+                    </p>
+                    <% } %>
+                        <% if (successMessage) { %>
+                            <p style="color:rgb(0, 89, 255);">
+                                <%= successMessage %>
+                            </p>
+                            <% } %>
+            </fieldset>
+            <p>Mot de passe oublié ? Veuillez contacter votre administrateur</p>
+            <a class="password_link" href="/initPassword">Je n'ai pas encore defini de mot de passe ?</a>
+        </form>
+
+    </main>
+    <footer>
+        <small>©copyright 2025 Centre enuropéen de formation</small>
+    </footer>
+
+</body>

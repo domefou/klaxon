@@ -1,0 +1,32 @@
+# 🌐 Node.js
+node_modules/
+npm-debug.log*
+.env
+
+# 📦 Composer PHP
+/vendor/
+composer.lock
+
+# 🧪 PHPUnit
+.phpunit.result.cache
+
+# 💻 Système
+.DS_Store
+Thumbs.db
+
+# 🖼️ Sass / CSS compilés
+*.css.map
+public/stylesheet/main.css
+
+# 🧪 SQLite temporaire pour tests
+*.sqlite
+*.db
+
+# 🛠️ IDE
+.vscode/
+.idea/
+*.swp
+
+# 🔥 Logs et debug
+logs/
+*.log
