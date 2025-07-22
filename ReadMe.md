@@ -55,6 +55,15 @@ Réduire les déplacements individuels et optimiser les trajets inter-agences gr
    cd devoir_klaxon_covoit
    ```
 
+   !Attention veillez a bien créer un fichier ,env a la racine du projet avec le modèle ci-dessous : 
+
+DB_HOST=localhost
+DB_USER=votre_user
+PORT=3000
+DB_PASSWORD=votre_password
+DB_NAME=nom_de_la_base
+SECRET_KEY=clé_secrète_jwt
+
 2. **Installer les dépendances**
    - Node.js  
      ```bash
