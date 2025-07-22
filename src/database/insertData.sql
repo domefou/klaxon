@@ -15,8 +15,8 @@ ALTER TABLE users AUTO_INCREMENT = 1;
  * - LINES TERMINATED BY '\n' : chaque ligne se termine par un retour à la ligne
  * - Colonnes : nom, prenom, telephone, mail
  */
-LOAD DATA INFILE 'klaxon/csv/users.csv' INTO /*verifier bien le chemin des fichier .csv*/
-TABLE users FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' (nom, prenom, telephone, mail);
+LOAD DATA INFILE 'klaxon/csv/users.csv' INTO
+TABLE users CHARACTER SET utf8mb4 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\r\n' (nom, prenom, telephone, mail);
 
 /**
  * @action INSERT INTO
@@ -64,4 +64,4 @@ ALTER TABLE agence AUTO_INCREMENT = 1;
  * @note Attention, les valeurs pour TERMINATED BY et ENCLOSED BY doivent être valides pour que l’import fonctionne. 
  */
 LOAD DATA INFILE 'klaxon/csv/agences.csv' INTO /*verifier bien le chemin des fichier .csv*/
-TABLE agence FIELDS TERMINATED BY '' ENCLOSED BY '' LINES TERMINATED BY '\n' (agence);
+TABLE agence CHARACTER SET utf8mb4 FIELDS TERMINATED BY '' ENCLOSED BY '' LINES TERMINATED BY '\r\n' (agence);

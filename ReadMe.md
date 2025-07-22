@@ -96,10 +96,14 @@ SECRET_KEY=clé_secrète_jwt
 - dirigez vous vers le lien : Je n'ai pas encore defini de mot de passe ?
 - puis initialisez votre mot de passe avec les éléments ci dessous.
 
+ADMIN:
       mail : admin@email,fr
       nom : admin
-      prénom : admin
-      telephone : 0000000000
+
+USER: 
+      mail : alexandre.martin@email.fr
+      nom : martin
+
 ---
 
 ## 🚀 Scripts utiles
